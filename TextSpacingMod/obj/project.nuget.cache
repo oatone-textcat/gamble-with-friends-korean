@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "JNs2/zX4pKY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\saimi\\Downloads\\갬블위드유어프렌즈_임시한글_비공개\\TextSpacingMod\\TextSpacingMod.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\saimi\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\saimi\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

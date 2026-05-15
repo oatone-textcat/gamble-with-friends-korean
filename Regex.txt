@@ -1,0 +1,94 @@
+# 금액 범위 (Min: $... \nMax: $...) 대응
+sr:"^Min: \$(?<min_i>[0-9,.]+K?) \\nMax: \$(?<max_i>[0-9,.]+K?)$"="최소: $${min_i}\n최대: $${max_i}"
+
+# 한 줄 금액 범위 대응 (Min: $... Max: $...)
+sr:"^Min: \$(?<min_i>[0-9,.]+K?) Max: \$(?<max_i>[0-9,.]+K?)$"="최소: $${min_i} 최대: $${max_i}"
+
+# 배수 (숫자x 또는 숫자.숫자x) 대응
+sr:"^(?<num_i>[0-9,.]+)[xX]$"="${num_i}배"
+
+# 달러 금액 (예: $1.2K) 대응
+sr:"^\$(?<num_i>[0-9,.]+K?)$"="$${num_i}"
+
+# 날짜 및 시간 패턴
+sr:"^DAY (?<num_i>[0-9]+)$"="${num_i}일차"
+sr:"^(?<num_i>[0-9]+)s$"="${num_i}초"
+
+# 통계(Stats) 패턴
+sr:"^Stats for day (?<num_i>[0-9]+)$"="${num_i}일차 통계"
+
+# 할당량 퍼센트 대응 (Quota (100%) 등)
+sr:"^Quota \((?<num_i>[0-9,.]+)%\)$"="할당량 (${num_i}%)"
+
+# 할당량 초과 보상 퍼센트 대응 (Quota Excess Reward (33%) 등)
+sr:"^Quota Excess Reward \((?<num_i>[0-9,.]+)%\)$"="할당량 초과 달성 보상 (${num_i}%)"
+
+# 로비
+sr:"^(?<id_i>[0-9]+) \| (?<host>.*)'s Lobby$"="${id_i} | ${host}의 로비"
+
+# Day [숫자] (예: Day 1 -> 1일차)
+r:"^Day ([0-9]+)$"=$1일차
+
+# Jackpot/Loss 금액 (예: Jackpot!\n$168.75 -> 잭팟!\n$168.75)
+# 금액 부분($.._i)은 번역을 시도하지 않고 그대로 유지합니다.
+sr:"^Jackpot!\\n(?<amount_i>\$[0-9\.,]+)$"="잭팟!\\n${amount_i}"
+
+# 마이너스 금액 (예: -$1.29K)
+sr:"^(?<minus_i>-\$[0-9\.,]+[KMB]?)$"="${minus_i}"
+
+# 목표 금액 표시 (예: / $1.7K)
+sr:"^/ (?<goal_i>\$[0-9\.,]+[KMB]?)$"="/ ${goal_i}"
+
+# 티켓 수량 (예: 4 Tickets -> 티켓 4장)
+sr:"^(?<num_i>[0-9]+) Tickets$"="티켓 ${num_i}장"
+
+# 아이템 구매 (예: Buy 1 Item(s) (4 tickets) -> 아이템 1개 구매 (티켓 4장))
+# 재귀적 호출을 위해 sr 형식을 사용하며, 숫자 부분만 변수로 처리합니다.
+sr:"^Buy (?<item_i>[0-9]+) Item\(s\) \((?<tk_i>[0-9]+) tickets\)$"="아이템 ${item_i}개 구매 (티켓 ${tk_i}장)"
+
+# (챌린지) 정규화: 앞의 임무명을 먼저 번역하고 뒤에 " (챌린지)"를 붙입니다.
+# 예: Lucky Streak (Challenge) -> 행운의 연승 (챌린지)
+sr:"^(?<task>[\s\S]+) \(Challenge\)$"="${task} (챌린지)"
+
+# 할당량(Quota) 및 비율 정규화
+# 예: Pays 33% of quota...
+sr:"^<color\\=green>Pays</color> (?<percent_i>[0-9]+)% of <color\\=red>quota</color> (?<after>[\s\S]+)$"="각 신체 부위를 파괴할 때마다 <color\\=red>할당량</color>의 ${percent_i}%를 <color\\=green>납부</color>합니다"
+
+# 아이템 구매 정규화 (아이템 개수와 티켓 수량이 가변적인 경우)
+# 예: Buy 1 Item(s) (7 tickets) -> 1개 품목 구매 (티켓 7장)
+sr:"^<noparse></noparse> Buy (?<item_i>[0-9]+) Item\(s\) \((?<tk_i>[0-9]+) tickets\)$"="<noparse></noparse> ${item_i}개 품목 구매 (티켓 ${tk_i}장)"
+sr:"^ Buy (?<item_i>[0-9]+) Item\(s\) \((?<tk_i>[0-9]+) tickets\)$"=" ${item_i}개 품목 구매 (티켓 ${tk_i}장)"
+
+# 가변적 베팅액이 있는 챌린지 내용
+r:"^Bet a total of (\$\S+) across all games$"=모든 게임에서 총 $1 이상 베팅하세요.
+r:"^Place a single bet of (\$\S+) or more$"=단일 베팅으로 $1 이상 베팅하세요.
+r:"^Bet at least (\$\S+) on roulette and profit$"=룰렛에서 $1 이상 베팅하고 수익을 내세요.
+r:"^Win 3 games with a minimum bet of (\$\S+) on wheel of fortune$"=운명의 휠에서 최소 $1 이상 베팅해 3게임 승리하세요.
+r:"^Bet a total of (\$\S+) across all games\.$"=모든 게임에서 총 $1 이상 베팅하세요.
+r:"^Profit total of (\$\S+) on Hi Lo$"=하이로에서 총 $1의 수익을 내세요.
+r:"^Place a single bet of (\$\S+) or more\.$"=단일 베팅으로 $1 이상 베팅하세요.
+r:"^Bet total of (\$\S+) on keno\.$"=키노에서 총 $1 이상 베팅하세요.
+r:"^Win 3 games in a row with at least (\$\S+) bets on money wheel\.$"=머니 휠에서 $1 이상씩 베팅해 3게임 연속으로 승리하세요.
+r:"^Lose 4 times in a row with at least (\$\S+) on dragon tower\.$"=드래곤 타워에서 $1 이상씩 베팅해 4번 연속으로 패배하세요.
+r:"^Spend total of (\$\S+) on wheel of fortune\.$"=운명의 휠에서 총 $1 이상 사용하세요.
+r:"^Win total of (\$\S+) on blackjack\.$"=블랙잭에서 총 $1 이상 승리하세요.
+r:"^Win 4 times in a row with a minimum bet of (\$\S+) on crash\.$"=크래시에서 최소 $1 이상 베팅해 4번 연속으로 승리하세요.
+r:"^Spend total of (\$\S+) on penguin cross\.$"=펭귄 크로스에서 총 $1 이상 사용하세요.
+r:"^Win 2 games in a row with a minimum bet of (\$\S+) on duck race\.$"=오리 경주에서 최소 $1 이상 베팅해 2게임 연속으로 승리하세요.
+r:"^Profit (\$\S+) on keno\.$"=키노에서 $1의 수익을 내세요.
+r:"^Lose 5 games in a row with a minimum bet of (\$\S+) on money wheel\.$"=머니 휠에서 최소 $1 이상 베팅해 5게임 연속으로 패배하세요.
+r:"^Spend total of (\$\S+) on roulette\.$"=룰렛에서 총 $1 이상 사용하세요.
+
+# 1P 포커 카드 선택 툴팁
+r:"^Press (\S+) to lock/unlock$"=$1을 눌러 잠금/해제
+
+# 버그 생기는 아이템 설명 분리
+r:"^Spin for a chance to revert your last <color\=red>loss \$</color>\.$"=돌려서 일정 확률로 마지막 <color\=red>손실액</color>을 되돌립니다.
+
+# 하루 종료시 버튼 홀드로 계속
+r:"^Hold (\S+) to continue$"=$1을 길게 눌러 계속
+
+r:"^Are you sure you want to delete the save from (?<date>\d{2}-\d{2}-\d{4})\? This action cannot be undone\.$"="${date} 저장 파일을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+
+sr:"^Hold\s+(?<key_i>.+)\s+to continue$"="${key_i} 키를 길게 눌러 계속하기"
+
