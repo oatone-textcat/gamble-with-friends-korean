@@ -1,5 +1,13 @@
 # Gamble With Your Friends 비공식 한글 번역 패치
 
+> **기존 한글패치 안내**  
+> Thunderstore에서 chpchs님의 한글패치가 배포 중입니다. 해당 패치는 Thunderstore Mod Manager을 사용하여 쉽게 설치하실 수 있습니다. 
+> [GWYF Korean Translation - Thunderstore](https://thunderstore.io/c/gamble-with-your-friends/p/chpchs/GWYF_Korean_Translation/)
+>
+> 해당 패치는 본 패치보다 먼저 공개되어 있었으나, 저희가 패치 작업을 시작할 당시 미처 확인하지 못해 뒤늦게 존재를 알게 되었습니다. 의도적으로 중복 작업을 하거나 기존 작업을 덮어쓰려는 의도는 전혀 없었습니다.
+>
+> 두 패치는 적용 방식과 번역/표기 방식, 폰트 적용 상태 등에 차이가 있으므로, 원하시는 쪽을 선택해서 사용하시면 됩니다.
+
 ## 프로젝트 구성
 
 본 번역 패치는 치지직 스트리머 **여까**님의 커뮤니티에서 모집된 인원들로 구성된 번역팀 **글냥이**를 중심으로 제작되었습니다.
